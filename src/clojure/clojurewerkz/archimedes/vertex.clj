@@ -56,12 +56,12 @@
     (if (= 1 (count ids)) (first results) results)))
 
 ;; TODO  re-implement?
-;; (defn find-by-kv
-;;   "Given a key and a value, returns the set of all vertices that
-;;    sastify the pair."
-;;   [g k v]
-;;   ;(set (.vertices g (to-array [(name k) v])))
-;;   )
+(defn find-by-kv
+  "Given a key and a value, returns the set of all vertices that
+   sastify the pair."
+  [g k v]
+  (set (iterator-seq (.has (.V (.traversal g) (to-array [])) (name k) v)))
+  )
 
 (defn get-all-vertices
   "Returns all vertices."
@@ -128,53 +128,52 @@
    (let [^Vertex new-vertex (.addVertex ^Graph g (to-array [T/id id]))]
        (merge! new-vertex m))))
 
-;; TODO re-implement?
-;; (defn upsert!
-;;   "Given a key and a property map, upsert! either creates a new node
-;;    with that property map or updates all nodes with the given key
-;;    value pair to have the new properties specifiied by the map. Always
-;;    returns the set of vertices that were just update or created."
-;;   [g k m]
-;;   (let [vertices (find-by-kv g (name k) (k m))]
-;;     (if (empty? vertices)
-;;       (set [(create! g m)])
-;;       (do
-;;         (doseq [vertex vertices] (merge! vertex m))
-;;         vertices))))
+(defn upsert!
+  "Given a key and a property map, upsert! either creates a new node
+   with that property map or updates all nodes with the given key
+   value pair to have the new properties specifiied by the map. Always
+   returns the set of vertices that were just update or created."
+  [g k m]
+  (let [vertices (find-by-kv g (name k) (k m))]
+    (if (empty? vertices)
+      (set [(create! g m)])
+      (do
+        (doseq [vertex vertices] (merge! vertex m))
+        vertices))))
 
-;; (defn unique-upsert!
-;;   "Like upsert!, but throws an error when more than one element is returned."
-;;   [& args]
-;;   (let [upserted (apply upsert! args)]
-;;     (if (= 1 (count upserted))
-;;       (first upserted)
-;;       (throw (Throwable.
-;;               (str
-;;                "Don't call unique-upsert! when there is more than one element returned.\n"
-;;                "There were " (count upserted) " vertices returned.\n"
-;;                "The arguments were: " args "\n"))))))
+(defn unique-upsert!
+  "Like upsert!, but throws an error when more than one element is returned."
+  [& args]
+  (let [upserted (apply upsert! args)]
+    (if (= 1 (count upserted))
+      (first upserted)
+      (throw (Throwable.
+              (str
+               "Don't call unique-upsert! when there is more than one element returned.\n"
+               "There were " (count upserted) " vertices returned.\n"
+               "The arguments were: " args "\n"))))))
 
-;; (defn upsert-with-id!
-;;   "Given a key and a property map, upsert! either creates a new node
-;;    with that property map or updates all nodes with the given key
-;;    value pair to have the new properties specifiied by the map. Always
-;;    returns the set of vertices that were just update or created."
-;;   [g id k m]
-;;   (let [vertices (find-by-kv g (name k) (k m))]
-;;     (if (empty? vertices)
-;;       (set [(create-with-id! g id m)])
-;;       (do
-;;         (doseq [vertex vertices] (merge! vertex m))
-;;         vertices))))
+(defn upsert-with-id!
+  "Given a key and a property map, upsert! either creates a new node
+   with that property map or updates all nodes with the given key
+   value pair to have the new properties specifiied by the map. Always
+   returns the set of vertices that were just update or created."
+  [g id k m]
+  (let [vertices (find-by-kv g (name k) (k m))]
+    (if (empty? vertices)
+      (set [(create-with-id! g id m)])
+      (do
+        (doseq [vertex vertices] (merge! vertex m))
+        vertices))))
 
-;; (defn unique-upsert-with-id!
-;;   "Like upsert!, but throws an error when more than one element is returned."
-;;   [& args]
-;;   (let [upserted (apply upsert-with-id! args)]
-;;     (if (= 1 (count upserted))
-;;       (first upserted)
-;;       (throw (Throwable.
-;;               (str
-;;                "Don't call unique-upsert! when there is more than one element returned.\n"
-;;                "There were " (count upserted) " vertices returned.\n"
-;;                "The arguments were: " args "\n"))))))
+(defn unique-upsert-with-id!
+  "Like upsert!, but throws an error when more than one element is returned."
+  [& args]
+  (let [upserted (apply upsert-with-id! args)]
+    (if (= 1 (count upserted))
+      (first upserted)
+      (throw (Throwable.
+              (str
+               "Don't call unique-upsert! when there is more than one element returned.\n"
+               "There were " (count upserted) " vertices returned.\n"
+               "The arguments were: " args "\n"))))))
