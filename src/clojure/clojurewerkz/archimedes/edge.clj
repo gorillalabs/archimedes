@@ -55,7 +55,10 @@
 (defn find-by-id
   "Retrieves edges by id from the graph."
   [g & ids]
-  (iterator-seq (.edges g (to-array ids))))
+  (let [results (.edges g (to-array ids))]
+    (if (= 1 (count ids))
+      (if (.hasNext results) (.next results) nil)
+      (iterator-seq results))))
 
 (defn get-all-edges
   "Returns all edges."
@@ -117,7 +120,7 @@
   ([g ^Vertex v1 label ^Vertex v2]
      (connect! g v1 label v2 {}))
   ([g ^Vertex v1 label ^Vertex v2 data]
-     (let [new-edge (.addEdge v1 ^String (name label) v2 (to-array []))] ;TODO app properties here
+     (let [new-edge (.addEdge v1 ^String (name label) v2 (to-array []))] ;TODO add properties here
        (merge! new-edge data))))
 
 (defn connect-with-id!

@@ -1,6 +1,6 @@
 (ns clojurewerkz.archimedes.element
   (:refer-clojure :exclude [keys vals assoc! dissoc! get])
-  (:import org.apache.tinkerpop.gremlin.structure.Element))
+  (:import [org.apache.tinkerpop.gremlin.structure Element VertexProperty$Cardinality]))
 
 (defn get
   ([^Element elem key]
@@ -27,7 +27,9 @@
   ;;Important when using types. You aren't ever going to change a
   ;;user's id for example.
   (doseq [[key value] (partition 2 kvs)]
-      (.property elem (name key) value))
+    (if (set? value)
+      (.property elem VertexProperty$Cardinality/set (name key) value (to-array []))
+      (.property elem (name key) value)))
   elem)
 
 (defn merge!
