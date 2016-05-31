@@ -1,4 +1,4 @@
-(defproject gorillalabs/archimedes "3.0.0.0-SNAPSHOT"
+(defproject gorillalabs/archimedes "3.0.0.0"
   :description "Clojure wrapper for Tinkerpop Blueprints"
   :url "https://github.com/clojurewerkz/archimedes"
   :license {:name "Eclipse Public License"
