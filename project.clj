@@ -1,4 +1,4 @@
-(defproject gorillalabs/archimedes "3.0.0.1-SNAPSHOT"
+(defproject gorillalabs/archimedes "3.0.0.1"
   :description "Clojure wrapper for Tinkerpop Blueprints"
   :url "https://github.com/clojurewerkz/archimedes"
   :license {:name "Eclipse Public License"
@@ -7,8 +7,8 @@
                  [potemkin "0.2.0"]
                  [org.apache.tinkerpop/gremlin-core "3.1.1-incubating" :exclusions [org.slf4j/slf4j-api]]]
   :source-paths ["src/clojure"]
-  :profiles {:dev    {:dependencies [[gorillalabs.titan/titan-core  "1.1.0g-SNAPSHOT" :exclusions [org.slf4j/slf4j-api]]
-                                     [gorillalabs.titan/titan-berkeleyje "1.1.0g-SNAPSHOT" :exclusions [org.slf4j/slf4j-api]]
+  :profiles {:dev    {:dependencies [[gorillalabs/titan-core  "1.1.0g" :exclusions [org.slf4j/slf4j-api]]
+                                     [gorillalabs/titan-berkeleyje "1.1.0g" :exclusions [org.slf4j/slf4j-api]]
                                      [org.slf4j/slf4j-nop "1.7.5"]
                                      [clojurewerkz/support "1.0.0" :exclusions [com.google.guava/guava
                                                                                 org.clojure/clojure]]
