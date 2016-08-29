@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: com.thinkaurelius.titan/titan-core:1.1.0g-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/thinkaurelius/titan/titan-core/1.1.0g-SNAPSHOT/titan-core-1.1.0g-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

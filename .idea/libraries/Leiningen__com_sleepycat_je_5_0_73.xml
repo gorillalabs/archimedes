@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: com.sleepycat/je:5.0.73">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/sleepycat/je/5.0.73/je-5.0.73.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
